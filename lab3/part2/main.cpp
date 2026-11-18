@@ -115,7 +115,6 @@ private:
             slider[i]->setRange(model.minimumValue(), model.maximumValue());
         }
         number[1]->setRange(model.minimumB(), model.maximumB());
-        slider[1]->setRange(model.minimumB(), model.maximumB());
 
         for (int i = 0; i < 3; ++i) {
             text[i]->setText(QString::number(values[i]));
@@ -145,7 +144,7 @@ public:
             text[i] = new QLineEdit;
             number[i] = new QSpinBox;
             slider[i] = new QSlider(Qt::Horizontal);
-            slider[i]->setTracking(false);
+            slider[i]->setTracking(i == 1);
 
             auto* row = new QWidget;
             auto* rowLayout = new QVBoxLayout(row);
@@ -160,7 +159,15 @@ public:
                 if (!updating) editNumber(i, value);
             });
             connect(slider[i], &QSlider::valueChanged, this, [this, i](int value) {
-                if (!updating) editNumber(i, value);
+                if (updating)
+                    return;
+
+                editNumber(i, value);
+                if (i == 1 && value != model.valueB()) {
+                    updating = true;
+                    slider[i]->setValue(model.valueB());
+                    updating = false;
+                }
             });
         }
 
