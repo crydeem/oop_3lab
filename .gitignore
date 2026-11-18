@@ -1,0 +1,10 @@
+lab3/build*/
+lab3/out/
+lab3/out-*/
+lab3/CMakePresets.json
+lab3/CMakeUserPresets.json
+lab3/part1/x64/
+lab3/part2/x64/
+lab3/part1/Lab3Part1/
+lab3/part2/Lab3Part2/
+.vs/

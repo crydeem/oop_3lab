@@ -1,0 +1,6 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+  </Configurations>
+  <Project Path="oop_3lab/oop_3lab.vcxproj" />
+</Solution>

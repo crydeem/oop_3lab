@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/qt/qml/oop_3lab">
+        <file>main.qml</file>
+    </qresource>
+</RCC>
