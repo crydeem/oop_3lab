@@ -145,6 +145,7 @@ public:
             text[i] = new QLineEdit;
             number[i] = new QSpinBox;
             slider[i] = new QSlider(Qt::Horizontal);
+            slider[i]->setTracking(false);
 
             auto* row = new QWidget;
             auto* rowLayout = new QVBoxLayout(row);
