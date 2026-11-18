@@ -9,4 +9,8 @@ lab3/out-*/
 *.vcxproj.user
 lab3/CMakePresets.json
 lab3/CMakeUserPresets.json
+lab3/part1/CMakePresets.json
+lab3/part1/CMakeUserPresets.json
+lab3/part2/CMakePresets.json
+lab3/part2/CMakeUserPresets.json
 .vs/

@@ -13,6 +13,9 @@
 class NumbersModel : public QObject {
     Q_OBJECT
 private:
+    static constexpr int minValue = 0;
+    static constexpr int maxValue = 100;
+
     int a = 10;
     int b = 50;
     int c = 90;
@@ -34,14 +37,16 @@ private:
 public:
     NumbersModel() {
         QSettings settings;
-        a = std::clamp(settings.value("a", a).toInt(), 0, 100);
-        b = std::clamp(settings.value("b", b).toInt(), a, 100);
-        c = std::clamp(settings.value("c", c).toInt(), b, 100);
+        a = std::clamp(settings.value("a", a).toInt(), minValue, maxValue);
+        b = std::clamp(settings.value("b", b).toInt(), a, maxValue);
+        c = std::clamp(settings.value("c", c).toInt(), b, maxValue);
     }
 
     int valueA() const { return a; }
     int valueB() const { return b; }
     int valueC() const { return c; }
+    int minimumValue() const { return minValue; }
+    int maximumValue() const { return maxValue; }
     int minimumB() const { return a; }
     int maximumB() const { return c; }
 
@@ -49,7 +54,7 @@ public:
 
     void setA(int value) {
         int oldA = a, oldB = b, oldC = c;
-        a = std::clamp(value, 0, 100);
+        a = std::clamp(value, minValue, maxValue);
         b = std::max(a, b);
         c = std::max(b, c);
         notifyIfChanged(oldA, oldB, oldC);
@@ -63,7 +68,7 @@ public:
 
     void setC(int value) {
         int oldA = a, oldB = b, oldC = c;
-        c = std::clamp(value, 0, 100);
+        c = std::clamp(value, minValue, maxValue);
         b = std::min(b, c);
         a = std::min(a, b);
         notifyIfChanged(oldA, oldB, oldC);
@@ -106,8 +111,8 @@ private:
 
         int values[3] = {model.valueA(), model.valueB(), model.valueC()};
         for (int i = 0; i < 3; ++i) {
-            number[i]->setRange(0, 100);
-            slider[i]->setRange(0, 100);
+            number[i]->setRange(model.minimumValue(), model.maximumValue());
+            slider[i]->setRange(model.minimumValue(), model.maximumValue());
         }
         number[1]->setRange(model.minimumB(), model.maximumB());
         slider[1]->setRange(model.minimumB(), model.maximumB());
